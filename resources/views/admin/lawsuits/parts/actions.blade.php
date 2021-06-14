@@ -15,7 +15,7 @@
         </a>
     @endcan
     @can('lawsuits.delete')
-        <a href="javascript:;" data-url="{{ route('lawsuits.delete',  $id ) }}" class="btn btn-outline-danger btn-elevate-hover btn-circle btn-icon btn-sm delete_btn" title="حذف">
+        <a href="javascript:;" data-url="{{ route('lawsuits.delete',  $id ) }}"  class="btn btn-outline-danger btn-elevate-hover btn-circle btn-icon btn-sm delete_btn" title="حذف">
             <i class="la la-trash"></i>
         </a>
     @endcan

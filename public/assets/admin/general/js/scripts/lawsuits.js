@@ -101,12 +101,12 @@ var Lawsuits = function () {
         $(document).on('click', '.delete_btn', function (e) {
             e.preventDefault();
             var btn = $(this);
-
+            console.log('delete parent row');
             Common.confirm(function() {
                 var link = btn.data('url');
                 var formData = {};
                 var method = "GET";
-                Forms.doAction(link, formData, method, view_tbl);
+                Forms.doAction(link, formData, method, view_url);
             });
         });
     };
@@ -170,14 +170,19 @@ var Lawsuits = function () {
     ///////////////////////////////////////////
     var deleteLogItem = function () {
         $(document).on('click', '.delete_log_btn', function (e) {
+            console.log('delete log row');
             e.preventDefault();
             var btn = $(this);
-
             Common.confirm(function() {
                 var link = btn.data('url');
+                var kind = btn.data('kind');
                 var formData = {};
                 var method = "GET";
-                Forms.doAction(link, formData, method, view_logs_tbl);
+                if(kind === 'parent'){
+                    Forms.doAction(link, formData, method, null, callBack);
+                }else{
+                    Forms.doAction(link, formData, method, view_logs_tbl);
+                }
                 //Forms.doAction(link, formData, method, null, callBack);
 
             });

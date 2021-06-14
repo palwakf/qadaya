@@ -42,13 +42,41 @@ class DashboardController extends AdminController
     {
         /* Statistics */
         self::$data['roles'] = Role::count();
-        self::$data['users'] = User::count();
+        self::$data['users'] = User::where('status',1)->count();
         self::$data['courts'] = Court::count();
         self::$data['types'] = Type::count();
-        self::$data['active_lawsuits'] = Lawsuit::whereNull('parent_id')->where('is_archived',0)->count();
-        self::$data['archived_lawsuits'] = Lawsuit::whereNull('parent_id')->where('is_archived',1)->count();
+        self::$data['all_lawsuits'] = $all = Lawsuit::whereNull('parent_id')->count();
+        self::$data['active_lawsuits'] = $active = Lawsuit::whereNull('parent_id')->where('is_archived',0)->count();
+        self::$data['archived_lawsuits'] = $archived = Lawsuit::whereNull('parent_id')->where('is_archived',1)->count();
+        self::$data['active_lawsuits_percentage'] = ($all == 0) ? 0 : ($active/ $all) * 100;
+        self::$data['archived_lawsuits_percentage'] = ($all == 0) ? 0 : ($archived/ $all) * 100;
+
+        $tribunals = Court::all();
+        foreach ($tribunals as $court){
+            $court_labels[] = $court->name;
+            $court_lawsuits[] = Lawsuit::where('user_id',$court->id)->distinct('lawsuit_number')->count();
+        }
+        self::$data['court_labels'] = $court_labels;
+        self::$data['court_lawsuits'] = $court_lawsuits ;
+
+        $lawyers= $items= [] ;
+        $lawyers_users = User::all();
+        foreach ($lawyers_users as $lawyer ){
+            $lawyer_name = $lawyer->name ;
+            $count = Lawsuit::where('user_id',$lawyer->id)->distinct('lawsuit_number')->count() ;
+            array_push($lawyers,['name'=>$lawyer_name , 'count'=>$count]);
+        }
+        self::$data['lawyers'] = $lawyers ;
 
 
+        $kinds = Type::all();
+        foreach ($kinds as $kind){
+            $kind_name = $kind->name ;
+            $count2 = Lawsuit::where('type_id',$kind->id)->distinct('lawsuit_number')->count() ;
+            array_push($items,['name'=>$kind_name , 'count'=>$count2]);
+        }
+        self::$data['items'] = $items ;
+        //dd($lawyers);
         //dd(self::$data );
         return view('admin.dashboard.view', self::$data);
     }

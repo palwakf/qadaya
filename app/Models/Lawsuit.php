@@ -49,7 +49,7 @@ class Lawsuit extends Model
     {
         parent::boot();
         static::deleting(function ($entity) { // before delete() method call this
-            $entity->childrens()->delete();
+            //$entity->childrens()->delete();
         });
     }
 

@@ -346,9 +346,9 @@ class LawsuitController extends AdminController
             $data['btn_red'] = parent::$data['btn_red'];
             $data['btn_green'] = parent::$data['btn_green'];
             $data['has_action'] = (! is_null($row->parent_id)) ? 1 : 0 ;
-            $data['edit_route']  = ($row->parent_id) ? route('logs.edit',  $row->id )  : route('lawsuits.edit',  $row->id )  ;
+            $data['edit_route']   = ($row->parent_id) ? route('logs.edit',  $row->id )  : route('lawsuits.edit',  $row->id )  ;
             $data['delete_route'] = ($row->parent_id) ? route('logs.delete',  $row->id )  : route('lawsuits.delete',  $row->id ) ;
-
+            $data['delete_class'] = ($row->parent_id) ? 'delete_log_btn'  : 'delete_btn' ;
             $data['kind'] =  (is_null($row->parent_id)) ? 'parent' : 'log'  ;
             return view('admin.lawsuits.parts.log-actions', $data)->render();
         });

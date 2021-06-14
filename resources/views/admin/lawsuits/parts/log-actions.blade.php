@@ -5,14 +5,14 @@
             <i class="la la-eye"></i>
         </a>
     @endif
-    @if((auth()->user()->can('logs.edit') || auth()->user()->can('lawsuits.edit')) && $has_action)
+    @if((auth()->user()->can('logs.edit') || auth()->user()->can('lawsuits.edit')))
         <a href="{{ $edit_route }}" class="btn btn-outline-success btn-elevate-hover btn-circle btn-icon btn-sm" title="تعديل">
             <i class="la la-edit"></i>
         </a>
     @endif
 
-    @if((auth()->user()->can('logs.delete') || auth()->user()->can('lawsuits.delete'))&& $has_action)
-        <a href="javascript:;" data-url="{{ $delete_route}}" class="btn btn-outline-danger btn-elevate-hover btn-circle btn-icon btn-sm delete_log_btn" title="حذف">
+    @if((auth()->user()->can('logs.delete') || auth()->user()->can('lawsuits.delete')))
+        <a href="javascript:;" data-url="{{ $delete_route}}" data-kind="{{$kind}}" class="btn btn-outline-danger btn-elevate-hover btn-circle btn-icon btn-sm delete_log_btn" title="حذف">
             <i class="la la-trash"></i>
         </a>
     @endif

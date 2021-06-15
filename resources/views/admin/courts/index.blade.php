@@ -84,9 +84,9 @@
             <table class="table table-striped- table-bordered table-hover" id="courts_table">
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <th class="no-export">#</th>
                     <th>الإسم</th>
-                    <th>أدوات</th>
+                    <th class="width-20-percent no-export">أدوات</th>
                 </tr>
                 </thead>
                 <tbody>

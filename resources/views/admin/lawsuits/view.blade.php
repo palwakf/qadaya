@@ -9,6 +9,9 @@
 .width-20-percent{
     width: 20% !important;
 }
+.font-inherit{
+    font-family: inherit !important;
+}
 </style>
 @stop
 @section('subheader')
@@ -126,15 +129,15 @@
             <table class="table table-striped- table-bordered table-hover" id="lawsuits_table">
                 <thead>
                 <tr>
-                    <th>#</th>
+                    <th class="no-export">#</th>
                     <th>رقم الدعوى</th>
                     <th>المدعي</th>
                     <th>المدعى عليه</th>
                     <th>نوع الدعوى</th>
                     <th>المحكمة</th>
                     <th>الملاحظات</th>
-                    <th>حالة الدعوى</th>
-                    <th class="width-20-percent">أدوات</th>
+                    <th class="no-export">حالة الدعوى</th>
+                    <th class="width-20-percent no-export">أدوات</th>
                 </tr>
                 </thead>
                 <tbody>

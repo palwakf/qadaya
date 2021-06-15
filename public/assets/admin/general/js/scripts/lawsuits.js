@@ -33,9 +33,53 @@ var Lawsuits = function () {
             d.type_id = $('#type_id').val();
             d.court_id = $('#court_id').val();
         };
+        var buttons = [
+            {
+                extend: 'excel',
+                className: 'export font-inherit',
+                text: ' اكسل ',
+                exportOptions: {
+                    columns: ':visible:not(.no-export)',
+                    modifier: {
+                        page: 'all'
+                    }
+                },
+                title: 'الدعاوي القانونية'
+            },
+            {
+                extend: 'print',
+                className: 'print font-inherit',
+                text: ' طباعة ',
+                exportOptions: {
+                    columns: ':visible:not(.no-export)',
+                    modifier: {
+                        page: 'all',
+                        direction:'rtl'
+                    }
+                },
+                title: 'الدعاوي القانونية',
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .css('direction' ,'rtl')
+                        .prepend(
+                            // '<img src="http://datatables.net/media/images/logo-fade.png" style="position:absolute; top:0; left:0;" />'
+                        );
+
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' )
+                        .css( 'margin-top', '20pt' );
+
+                    $(win.document.body).find('h1').css('font-size', '12pt');
+                    $(win.document.body).find('h1').css('text-align', 'center');
+                    $(win.document.body).find('h1').css('padding', '30px 0');
+                }
+            }
+        ];
 
         console.log('request data');
-        view_tbl = DataTable.init($(table_id), link, columns, order, ajaxFilter, perPage);
+        view_tbl = DataTable.init($(table_id), link, columns, order, ajaxFilter, perPage, true, buttons);
     };
 
 
@@ -51,14 +95,14 @@ var Lawsuits = function () {
     var viewLogTable = function () {
         var linkURL = list_logs_url;
         var datatable_columns = [
-            {"data": "index", "title": "#", "orderable": false, "searchable": false},
+            {"data": "index", "title": "#", "orderable": false, "searchable": false, "class" : "no-export"},
             {"data": "lawsuit_number", "orderable": true, "searchable": true},
             {"data": "claimant", "orderable": true, "searchable": true},
             {"data": "defendant", "orderable": true, "searchable": true},
             {"data": "type_name", "orderable": true, "searchable": true},
             {"data": "court_name", "orderable": true, "searchable": true},
             {"data": "details", "orderable": true, "searchable": true},
-            {"data": "actions", "orderable": false, "searchable": false, "class" : "text-center"}
+            {"data": "actions", "orderable": false, "searchable": false, "class" : "text-center no-export"}
         ];
 
         var per_page = 25;

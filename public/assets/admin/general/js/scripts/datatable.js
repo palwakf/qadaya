@@ -3,9 +3,10 @@
 
 var DataTable = function () {
 
-    var initDataTable = function (table, link, columns, order, ajaxFilter, perPage, hasIndex) {
+    var initDataTable = function (table, link, columns, order, ajaxFilter, perPage, hasIndex , buttons) {
 
         hasIndex = (typeof hasIndex === "boolean") ? hasIndex : true;
+        buttons = (buttons) ? buttons : [];
 
         var oTable = table.DataTable({
             "processing": true,
@@ -20,7 +21,9 @@ var DataTable = function () {
             },
             responsive: true,
             // DOM Layout settings
-            dom: "<'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>",
+            dom: 'Bfrtip',
+            buttons: buttons,
+            //dom: "<'row'<'col-sm-12'tr>><'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7 dataTables_pager'lp>>",
             language: {
                 "sProcessing": Common.getCurrentLanguage() === 'ar' ? ".:: معالجة ::." : ".:: Processing ::.",
                 'lengthMenu': Common.getCurrentLanguage() === 'ar' ? "اظهار _MENU_" : "Display _MENU_",
@@ -39,7 +42,6 @@ var DataTable = function () {
                 "targets": "_all",
                 "defaultContent": ""
             }],
-
             "columns": columns,
             "fnDrawCallback": function (oSettings) {
                 if(hasIndex) {
@@ -60,25 +62,8 @@ var DataTable = function () {
     };
 
     return {
-        init: function (table, link, columns, order, ajaxFilter, perPage, hasIndex) {
-            // $.extend($.fn.dataTable.defaults, {
-            //     autoWidth: false,
-            //     columnDefs: [{
-            //         orderable: false,
-            //         width: '100px',
-            //         targets: [5]
-            //     }],
-            //     dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
-            //     language: detectLang(),
-            //     drawCallback: function () {
-            //         $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
-            //     },
-            //     preDrawCallback: function () {
-            //         $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
-            //     }
-            // });
-
-            return initDataTable(table, link, columns, order, ajaxFilter, perPage, hasIndex);
+        init: function (table, link, columns, order, ajaxFilter, perPage, hasIndex, buttons) {
+            return initDataTable(table, link, columns, order, ajaxFilter, perPage, hasIndex, buttons);
         },
         updateDataTable: function (oTable) {
             oTable.draw(false);
